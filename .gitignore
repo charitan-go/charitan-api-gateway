@@ -1,0 +1,75 @@
+# Gradle
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Kotlin specific
+*.iml
+*.kts~
+*.main.kts~
+.idea/
+*.class
+*.jar
+*.war
+*.ear
+*.apk
+*.dex
+*.so
+*.o
+*.a
+*.dSYM/
+
+# Logs
+*.log
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Gradle caches and logs
+.gradle
+/build
+!gradle/wrapper/gradle-wrapper.jar
+
+# Local environment files
+.env
+*.local
+
+# Dependencies
+**/lib/
+**/node_modules/
+**/.yarn/
+**/.pnp.*
+
+# Generated files
+/build/
+/dist/
+/out/
+
+# JetBrains IDEs
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# Misc
+*.swp
+*.swo
+*.swn
+
+# Kotlin build cache
+.kotlinc/
+
+# Ktor local config
+local.conf
+
