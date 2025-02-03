@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: charitan-api-gateway
+  cloud:
+    consul:
+      host: service-registr
+      port: 8500
+      discovery:
+        enabled: true 
+        register: true 
+        service-name: charitan-api-gateway
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: 8080
+    
+    
