@@ -10,10 +10,10 @@ class ProfileRoute {
 
     @Bean
     RouteLocator profileRoutes(RouteLocatorBuilder builder) {
-        return builder.routes().route("profile-server",
+        return builder.routes().route("profile-server-rest",
                         r -> r.path("/api/profile/**")
                 .filters(f -> f.stripPrefix(2))
-                .uri("lb://profile-server"))
+                .uri("lb://profile-server-rest"))
                 .build();
     }
 }

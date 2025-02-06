@@ -10,10 +10,10 @@ class AuthRoute {
 
     @Bean
     RouteLocator authRoutes(RouteLocatorBuilder builder) {
-        return builder.routes().route("auth-server",
+        return builder.routes().route("auth-server-rest",
                         r -> r.path("/api/auth/**")
                                 .filters(f -> f.stripPrefix(2))
-                                .uri("lb://auth-server"))
+                                .uri("lb://auth-server-rest"))
                 .build();
     }
 }
