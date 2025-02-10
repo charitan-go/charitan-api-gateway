@@ -25,6 +25,7 @@ spring:
               - POST
               - PUT
               - DELETE
+            allowCredentials: true
 
 
 server:
