@@ -1,5 +1,10 @@
 # Stage 1: Build the application using the Gradle image with Alpine
 FROM gradle:8.4.0-jdk21-alpine AS build
+
+# Install protoc and other necessary dependencies
+RUN apk add --no-cache protobuf
+
+
 WORKDIR /app
 
 # Copy the Gradle files (including the Kotlin build script)
