@@ -1,4 +1,4 @@
-package charitan_go.charitan_api_gateway.route;
+package charitan_go.charitan_api_gateway.internal.route;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;

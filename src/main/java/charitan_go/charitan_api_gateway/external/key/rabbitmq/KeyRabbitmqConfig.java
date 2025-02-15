@@ -1,4 +1,4 @@
-package charitan_go.charitan_api_gateway.rabbitmq.key;
+package charitan_go.charitan_api_gateway.external.key.rabbitmq;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-class RabbitmqKeyConfig {
+class KeyRabbitmqConfig {
 
     public static final String EXCHANGE_NAME = "key.exchange";
     public static final String QUEUE_NAME = "charitan_api_gateway.public_key.queue";
