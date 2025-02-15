@@ -70,11 +70,19 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-amqp:3.4.2")
 
 	// Grpc
-	implementation("io.grpc:grpc-services")
-	implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
+	// implementation("io.grpc:grpc-services")
+	// implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
 
 	// https://mvnrepository.com/artifact/net.devh/grpc-client-spring-boot-starter
-	implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
+	// For Spring Boot 3.x
+	implementation("net.devh:grpc-spring-boot-starter:3.0.0.RELEASE")
+	implementation("io.grpc:grpc-netty:1.62.2")  // Explicit netty dependency
+	implementation("io.grpc:grpc-protobuf:1.62.2")
+	implementation("io.grpc:grpc-stub:1.62.2")
+
+	// For Protobuf
+	implementation("com.google.protobuf:protobuf-java:3.25.1")
+
 
 
 	compileOnly("org.projectlombok:lombok")
@@ -92,4 +100,5 @@ dependencyManagement {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	//enabled = false
 }

@@ -26,15 +26,11 @@ COPY src src
 # Build the application
 RUN ./gradlew build
 
-# Stage 2: Run the application using a lightweight Alpine image with OpenJDK 21
-FROM eclipse-temurin:21-jre-alpine
+# Stage 2: Use JDK 21 with glibc 
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
-# Copy the built JAR file from the build stage
 COPY --from=build /app/build/libs/charitan-api-gateway-0.0.1-SNAPSHOT.jar .
 
-# Expose the application port
 EXPOSE 8080
-
-# Run the application
 ENTRYPOINT ["java", "-jar", "charitan-api-gateway-0.0.1-SNAPSHOT.jar"]
