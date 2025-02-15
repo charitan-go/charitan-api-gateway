@@ -1,8 +1,15 @@
 # Stage 1: Build the application using the Gradle image with Alpine
-FROM gradle:8.4.0-jdk21-alpine AS build
+#FROM gradle:8.4.0-jdk21-alpine AS build
+#
+## Install protoc and other necessary dependencies
+#RUN apk add --no-cache protobuf
 
-# Install protoc and other necessary dependencies
-RUN apk add --no-cache protobuf
+# Stage 1: Build the application using a Debian-based Gradle image with JDK 21
+FROM gradle:8.4.0-jdk21 AS build
+WORKDIR /app
+
+# Install protoc via apt-get
+RUN apt-get update && apt-get install -y protobuf-compiler
 
 
 WORKDIR /app
