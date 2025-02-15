@@ -13,22 +13,30 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
           lower-case-service-id: true
-
+          enabled: true
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
-            allowedMethods:
+            allowed-origins:
+              - "http://localhost:3000"
+            allow-credentials: true
+            allowed-methods:
               - GET
               - POST
               - PUT
+              - PATCH
               - DELETE
-            allowCredentials: true
+            allowed-headers:
+              - "Access-Control-Allow-Origin"
+              - "Content-Type"
+              - "Authorization"
 
+  rabbitmq:
+    host: message-broker
+    port: 5672
+    username: ${MESSAGE_BROKER_USER}
+    password: ${MESSAGE_BROKER_PASSWORD}
 
 server:
   port: 8080
-    
-    

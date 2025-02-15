@@ -31,8 +31,9 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway:4.2.0")
 
-	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-gateway
-	// implementation("org.springframework.cloud:spring-cloud-gateway")
+	// https://mvnrepository.com/artifact/org.springframework.amqp/spring-amqp
+	implementation("org.springframework.boot:spring-boot-starter-amqp:3.4.2")
+
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
