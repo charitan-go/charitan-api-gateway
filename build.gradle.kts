@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.id
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.4.2"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("com.google.protobuf") version "0.9.4" // Latest Protobuf plugin version
 }
 
 group = "charitan-go"
@@ -24,7 +27,39 @@ repositories {
 //	maven { url "https://repo.spring.io/milestone" }
 }
 
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc"
+	}
+	plugins {
+		id("grpc") {
+			artifact = "io.grpc:protoc-gen-grpc-java"
+		}
+	}
+	generateProtoTasks {
+		all().forEach {
+			it.plugins {
+				id("grpc") {
+					option("jakarta_omit")
+					option("@generated=omit")
+				}
+			}
+		}
+	}
+}
+
+// Add generated sources to the main source set
+sourceSets {
+	main {
+		java {
+			srcDir("src/generated/main/java")
+		}
+	}
+}
+
 extra["springCloudVersion"] = "2024.0.0"
+extra["springGrpcVersion"] = "0.3.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -33,6 +68,13 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.springframework.amqp/spring-amqp
 	implementation("org.springframework.boot:spring-boot-starter-amqp:3.4.2")
+
+	// Grpc
+	implementation("io.grpc:grpc-services")
+	implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
+
+	// https://mvnrepository.com/artifact/net.devh/grpc-client-spring-boot-starter
+	implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
 
 
 	compileOnly("org.projectlombok:lombok")
@@ -44,6 +86,7 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+		mavenBom("org.springframework.grpc:spring-grpc-dependencies:${property("springGrpcVersion")}")
 	}
 }
 

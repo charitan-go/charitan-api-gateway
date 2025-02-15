@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "charitan_go.charitan_api_gateway.pkg.proto";
+option java_multiple_files = true;
+option java_outer_classname = "CharitanApiGatewayProto";
+
+//package charitan_go.charitan_api_gateway.pkg.proto;
+
+service KeyGrpcService {
+    rpc GetPublicKey(GetPublicKeyRequestDto) returns (GetPublicKeyResponseDto);
+}
+
+message GetPublicKeyRequestDto {
+  }
+
+message GetPublicKeyResponseDto {
+    string publicKey = 1;
+  }
