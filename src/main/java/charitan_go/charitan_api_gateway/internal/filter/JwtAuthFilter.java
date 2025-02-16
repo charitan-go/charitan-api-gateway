@@ -3,6 +3,8 @@ package charitan_go.charitan_api_gateway.internal.filter;
 import charitan_go.charitan_api_gateway.internal.jwt.JwtService;
 import io.jsonwebtoken.Claims;
 import org.apache.http.HttpHeaders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -21,6 +23,7 @@ import java.util.List;
 @Component
 class JwtAuthFilter implements GlobalFilter, Ordered {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthFilter.class);
     private final JwtService jwtService;
 
     private final List<PathPattern> publicPaths;
@@ -64,6 +67,9 @@ class JwtAuthFilter implements GlobalFilter, Ordered {
 
         try {
             Claims claims = jwtService.validateAndParseJwt(token.replace("Bearer ", ""));
+
+            log.info("Subject: {}", claims.getSubject());
+            log.info("Role: {}", claims.get("role", String.class));
 
             // Add claims to headers for ALL downstream services
             ServerHttpRequest modifiedRequest = exchange.getRequest().mutate()
