@@ -49,20 +49,21 @@ class JwtAuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // Get path
-        String path = exchange.getRequest().getURI().getPath();
+//        String path = exchange.getRequest().getURI().getPath();
 
         // If is public path
-        if (isPublicPath(path)) {
-            return chain.filter(exchange);
-        }
+//        if (isPublicPath(path)) {
+//            return chain.filter(exchange);
+//        }
 
         // Get token
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
         // For protected path, if token is not available => UNAUTHORIZED
         if (token == null || !token.startsWith("Bearer ")) {
-            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            return exchange.getResponse().setComplete();
+            return chain.filter(exchange);
+//            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//            return exchange.getResponse().setComplete();
         }
 
         try {
@@ -75,7 +76,6 @@ class JwtAuthFilter implements GlobalFilter, Ordered {
             ServerHttpRequest modifiedRequest = exchange.getRequest().mutate()
                     .header("X-User-Id", claims.getSubject())
                     .header("X-User-Role", claims.get("role", String.class))
-//                    .header("X-User-Role", String.join(",", claims.get("roles", List.class)))
                     .build();
 
             return chain.filter(exchange.mutate().request(modifiedRequest).build());
