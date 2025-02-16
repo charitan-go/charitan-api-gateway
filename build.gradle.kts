@@ -81,7 +81,7 @@ dependencies {
 	implementation("io.grpc:grpc-stub:1.62.2")
 
 	// For Protobuf
-	implementation("com.google.protobuf:protobuf-java:3.25.1")
+	implementation("com.google.protobuf:protobuf-java:4.28.2")
 
 
 
