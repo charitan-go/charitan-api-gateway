@@ -21,7 +21,7 @@ public class GrpcServiceClient {
     /**
      * Discover the service URI for the given serviceId.
      */
-    public String discoverServiceUri(String serviceId) {
+    public String discoverServiceTarget(String serviceId) {
         List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
         if (instances.isEmpty()) {
             throw new IllegalStateException("No instances available for service: " + serviceId);
@@ -35,10 +35,10 @@ public class GrpcServiceClient {
      * Build a gRPC channel for the Golang key service.
      */
     public ManagedChannel buildGrpcChannel(String serviceId) {
-        String uri = discoverServiceUri(serviceId);
-        System.out.println("Target URI is: " + uri);
+        String target = discoverServiceTarget(serviceId);
+        System.out.println("Target URI is: " + target);
         // Assumes the service is running with plaintext gRPC (adjust for TLS if necessary)
-        return ManagedChannelBuilder.forTarget(uri)
+        return ManagedChannelBuilder.forTarget(target)
                 .usePlaintext()
                 .build();
     }

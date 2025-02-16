@@ -7,7 +7,9 @@ option java_outer_classname = "CharitanApiGatewayProto";
 //package charitan_go.charitan_api_gateway.pkg.proto;
 
 service KeyGrpcService {
-    rpc GetPublicKey(GetPublicKeyRequestDto) returns (GetPublicKeyResponseDto);
+    rpc GetPublicKey(GetPublicKeyRequestDto) returns (GetPublicKeyResponseDto) {
+
+    }
 }
 
 message GetPublicKeyRequestDto {
