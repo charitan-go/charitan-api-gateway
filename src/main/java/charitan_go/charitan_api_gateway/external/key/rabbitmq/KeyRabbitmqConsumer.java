@@ -6,14 +6,17 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 @Component
-public class KeyRabbitmqConsumer {
+class KeyRabbitmqConsumer {
 
     @Autowired
     private JwtService jwtService;
 
     @RabbitListener(queues = KeyRabbitmqConfig.QUEUE_NAME)
-    public void handleGetPublicKeyRabbitmq(String message) {
+    void handleGetPublicKeyRabbitmq(String message) throws NoSuchAlgorithmException, InvalidKeySpecException {
         System.out.println(message);
         jwtService.handleGetPublicKeyRabbitmq();
     }
