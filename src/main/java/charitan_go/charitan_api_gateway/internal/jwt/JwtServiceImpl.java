@@ -2,6 +2,8 @@ package charitan_go.charitan_api_gateway.internal.jwt;
 
 import charitan_go.charitan_api_gateway.external.key.grpc.KeyGrpcClient;
 import charitan_go.charitan_api_gateway.pkg.proto.GetPublicKeyResponseDto;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ class JwtServiceImpl implements JwtService{
         // Generate the PublicKey object
         X509EncodedKeySpec spec = new X509EncodedKeySpec(decoded);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        publicKey = keyFactory.generatePublic(spec);
+        this.publicKey = keyFactory.generatePublic(spec);
     }
 
 
@@ -48,7 +50,6 @@ class JwtServiceImpl implements JwtService{
     public void handleGetPublicKeyRabbitmq() {
         // Get public key via GRPC
         GetPublicKeyResponseDto getPublicKeyResponseDto = keyGrpcClient.getPublicKey();
-
         log.info("Get public key successfully from key-server-grpc");
 
         // Save public key
@@ -59,4 +60,17 @@ class JwtServiceImpl implements JwtService{
             log.error("Error in saving public key");
         }
     }
+
+    @Override
+    public Claims validateAndParseJwt(String token) {
+        // Use the new JJWT builder API (compatible with 0.12.6) to parse the token.
+
+        return Jwts.parser()
+                .verifyWith(publicKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+
 }
