@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 class KeyGrpcClientImpl implements KeyGrpcClient {
-    private static final String KEY_GRPC_SERVER = "key-server-grpc";
+    private static final String KEY_GRPC_SERVER_URI = "key-server-grpc";
 
     private final GrpcServiceClient grpcServiceClient;
 
@@ -30,7 +30,7 @@ class KeyGrpcClientImpl implements KeyGrpcClient {
     @Override
     public GetPublicKeyResponseDto getPublicKey() {
         // Discover the service and build the channel.
-        ManagedChannel channel = grpcServiceClient.buildGrpcChannel(KEY_GRPC_SERVER);
+        ManagedChannel channel = grpcServiceClient.buildGrpcChannel(KEY_GRPC_SERVER_URI);
         KeyGrpcServiceGrpc.KeyGrpcServiceBlockingStub stub = KeyGrpcServiceGrpc.newBlockingStub(channel);
 
         // Build and send the request.

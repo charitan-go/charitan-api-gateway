@@ -28,7 +28,7 @@ public class GrpcServiceClient {
         }
         // For simplicity, select the first instance.
         ServiceInstance instance = instances.get(0);
-        return instance.getUri().toString();
+        return instance.getHost() + ":" + instance.getPort();
     }
 
     /**
@@ -36,6 +36,7 @@ public class GrpcServiceClient {
      */
     public ManagedChannel buildGrpcChannel(String serviceId) {
         String uri = discoverServiceUri(serviceId);
+        System.out.println("Target URI is: " + uri);
         // Assumes the service is running with plaintext gRPC (adjust for TLS if necessary)
         return ManagedChannelBuilder.forTarget(uri)
                 .usePlaintext()
