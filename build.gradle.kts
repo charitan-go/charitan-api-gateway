@@ -66,15 +66,19 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway:4.2.0")
 
-	// https://mvnrepository.com/artifact/org.springframework.amqp/spring-amqp
+	// Rabbitmq
 	implementation("org.springframework.boot:spring-boot-starter-amqp:3.4.2")
 
-	// Grpc
-	// implementation("io.grpc:grpc-services")
-	// implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
+	// Spring security
+	implementation("org.springframework.boot:spring-boot-starter-security:3.4.2")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.4.2")
 
-	// https://mvnrepository.com/artifact/net.devh/grpc-client-spring-boot-starter
-	// For Spring Boot 3.x
+	// Jwt
+	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
+
+	// For grpc
 	implementation("net.devh:grpc-spring-boot-starter:3.0.0.RELEASE")
 	implementation("io.grpc:grpc-netty:1.62.2")  // Explicit netty dependency
 	implementation("io.grpc:grpc-protobuf:1.62.2")
@@ -82,8 +86,6 @@ dependencies {
 
 	// For Protobuf
 	implementation("com.google.protobuf:protobuf-java:4.28.2")
-
-
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
